@@ -1,0 +1,47 @@
+<div class="sidebar">
+  <div [routerLink]="['/']" class="logo">
+    <img src="/assets/images/logo.png" alt="" />
+  </div>
+  <div class="divider"></div>
+  <div class="tabs">
+    <!-- pocetna -->
+    <div [routerLink]="['/']" class="tab">
+      <mat-icon class="icon">home</mat-icon>
+      <span>Početna</span>
+    </div>
+    <div class="divider"></div>
+    <!-- uplatnica -->
+    <div [matMenuTriggerFor]="uplatnica" class="tab">
+      <mat-icon class="icon">receipt_long</mat-icon>
+      <span mat-button>Informacije za uplatnicu</span>
+      <mat-menu #uplatnica="matMenu">
+        <button [routerLink]="['']" mat-menu-item>Valuta</button>
+        <button mat-menu-item [routerLink]="['']">Model</button>
+        <button [routerLink]="['']" mat-menu-item>Radnik</button>
+      </mat-menu>
+    </div>
+    <div [routerLink]="['/']" class="tab">
+      <mat-icon class="icon">payment</mat-icon>
+      <span>Uplatnica</span>
+    </div>
+    <div class="divider"></div>
+    <!-- ugovor -->
+    <div [matMenuTriggerFor]="profaktura" class="tab">
+      <mat-icon class="icon">format_list_bulleted</mat-icon>
+      <span mat-button>Informacije za profakturu</span>
+      <mat-menu #profaktura="matMenu">
+        <button [routerLink]="['']" mat-menu-item>Mesta (drzava-grad)</button>
+        <button mat-menu-item [routerLink]="['']">Ugovor</button>
+        <button [routerLink]="['']" mat-menu-item>Nacin placanja</button>
+        <button [routerLink]="['']" mat-menu-item>Tip prevoza</button>
+        <button [routerLink]="['']" mat-menu-item>Korisnik</button>
+        <button [routerLink]="['']" mat-menu-item>Ovlasceno lice</button>
+      </mat-menu>
+    </div>
+    <div [routerLink]="['/']" class="tab">
+      <mat-icon class="icon">receipt</mat-icon>
+      <span>Profaktura</span>
+    </div>
+    <div class="divider"></div>
+  </div>
+</div>

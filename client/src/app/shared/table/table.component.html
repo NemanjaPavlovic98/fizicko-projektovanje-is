@@ -1,0 +1,60 @@
+<table
+  *ngIf="dataSource && dataSource.length > 0"
+  [ngStyle]="tableWidth && { width: tableWidth }"
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8"
+>
+  <ng-container
+    [matColumnDef]="column"
+    *ngFor="let column of objectKeys(displayedColumns)"
+  >
+    <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[column] }}</th>
+    <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td class="actions" mat-cell *matCellDef="let element">
+      <ng-container *ngFor="let action of actionsForTable">
+        <mat-icon
+          [routerLink]="
+            action.route ? [action.route, element[action.param]] : []
+          "
+          (click)="
+            action.emit &&
+              onEmit({
+                action_type: action.type,
+                data: element,
+                params: action.param
+              })
+          "
+          >{{ action.icon }}</mat-icon
+        >
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="objectKeys(displayedColumnsFull)"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: objectKeys(displayedColumnsFull)"
+  ></tr>
+</table>
+
+<div
+  [ngStyle]="{ width: tableWidth ? tableWidth : '900px' }"
+  *ngIf="dataSource?.length === 0"
+>
+  <h1
+    style="
+      margin: auto 150px auto 0;
+      background: rgb(245, 243, 243);
+      border: 1px solid rgb(187, 183, 183);
+    "
+  >
+    Nema podataka
+  </h1>
+</div>
+
+<mat-spinner *ngIf="!dataSource"></mat-spinner>

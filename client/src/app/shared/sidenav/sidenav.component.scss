@@ -1,0 +1,49 @@
+@import "../../../assets/style.scss";
+
+.sidebar{
+    width: $side-nav-width;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(12, 11, 11);
+
+    .logo{
+        cursor: pointer;
+        padding: 15px 5px;
+        text-align: center;
+        img{
+            width: 120px;
+            height: auto;
+            margin: 0px auto;
+        }
+    }
+
+    .divider{
+        height: 1px;
+        width: 100%;
+        background-color: rgb(101, 101, 107);
+    }
+
+    .tabs{
+        color: white;
+        padding: 20px 15px;
+
+        .tab{
+            cursor: pointer;
+            margin: 10px auto;
+            padding: 5px;
+
+            display: flex;
+            align-items: center;
+
+            &:hover{
+                background: $main-color-gradient;
+            }
+
+            .icon{
+                margin-right: 10px;
+            }
+        }
+    }
+}

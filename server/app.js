@@ -1,6 +1,9 @@
 const express = require("express");
 
-const exampleRoutes = require("./routes/example.routes");
+const radnikRoutes = require("./routes/radnik.routes");
+const modelRoutes = require("./routes/model.routes");
+const valutaRoutes = require("./routes/valuta.routes");
+const mestoRoutes = require("./routes/mesto.routes");
 
 const { errorNotCaught, errorNotFound } = require("./middleware/error");
 
@@ -8,7 +11,6 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,10 +30,12 @@ app.get("/", (req, res) => {
 });
 
 //routes
-app.use("/example", exampleRoutes);
+app.use("/radnik", radnikRoutes);
+app.use("/model", modelRoutes);
+app.use("/valuta", valutaRoutes);
+app.use("/lokacija", mestoRoutes);
 
 app.use(errorNotFound);
 app.use(errorNotCaught);
-
 
 module.exports = app;

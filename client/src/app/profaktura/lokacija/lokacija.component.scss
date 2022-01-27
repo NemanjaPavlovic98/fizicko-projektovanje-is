@@ -1,0 +1,90 @@
+.outer-container {
+  padding-top: 100px;
+  width: 880px;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .search {
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+
+    .buttons{
+      display: inline;
+      margin-right: 50px;
+      button{
+        margin: 0px 5px;
+      }
+    }
+    .search-form {
+      width: 200px;
+      margin-right: 10px;
+
+      ::ng-deep .mat-form-field-wrapper{
+        padding: 0px !important;
+        margin: 0px !important;
+      }
+    }
+    .button {
+      width: 100px;
+    }
+  }
+
+  .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 50px;
+
+    .content {
+      table {
+        width: 500px;
+        max-width: 90%;
+
+        .cdk-column-prezime {
+          width: 120px;
+        }
+      }
+
+      button {
+        margin: 16px 8px 16px 0;
+      }
+    }
+
+    .form {
+      mat-card {
+        width: 350px;
+        max-width: 90%;
+        margin: 0px auto 0px;
+        text-align: center;
+        position: relative;
+        padding-top: 30px;
+      }
+
+      mat-form-field {
+        width: 100%;
+      }
+
+      .button {
+        display: block;
+        margin: auto;
+        cursor: pointer;
+        text-transform: uppercase;
+      }
+
+      a {
+        margin: 20px 0;
+        display: inline-block;
+        opacity: 0.4;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      mat-spinner {
+        margin: auto;
+      }
+    }
+  }
+}

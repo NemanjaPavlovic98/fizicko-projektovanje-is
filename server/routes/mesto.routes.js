@@ -10,11 +10,11 @@ router.delete("/deleteDrzava/:id", controller.deleteDrzava);
 router.get("/getGrad", controller.getGrad);
 router.post("/postGrad", controller.addGrad);
 router.put("/updateGrad/:id", controller.updateGrad);
-router.delete("/deleteGrad/:id", controller.deleteGrad);
+router.post("/deleteGrad/:id", controller.deleteGrad);
 
 router.get("/getAdresa", controller.getAdresa);
 router.post("/postAdresa", controller.addAdresa);
 router.put("/updateAdresa/:id", controller.updateAdresa);
-router.delete("/deleteAdresa/:id", controller.deleteAdresa);
+router.post("/deleteAdresa/:id", controller.deleteAdresa);
 
 module.exports = router;

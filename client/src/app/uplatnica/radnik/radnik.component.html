@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="content">
+      <h1>Radnici</h1>
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'450px'"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+    <div class="form">
+      <h1>{{ editMode ? "Azuriraj" : "Dodaj novog" }} radnika</h1>
+  
+      <mat-card>
+        <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Ime i prezime</mat-label>
+            <input matInput name="ime_prezime" type="text" formControlName="ime_prezime" />
+          </mat-form-field>
+  
+          <button
+            [disabled]="form.invalid"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="button"
+          >
+            {{ editMode ? "Azuriraj" : "Dodaj novog" }} radnika
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  

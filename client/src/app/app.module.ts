@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { ErrorInterceptor } from './utilities/error.interceptor';
 import { DatePipe } from '@angular/common';
+import { UplatnicaModule } from './uplatnica/uplatnica.module';
+import { ProfakturaModule } from './profaktura/profaktura.module';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, SidenavComponent],
@@ -20,6 +22,8 @@ import { DatePipe } from '@angular/common';
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    UplatnicaModule,
+    ProfakturaModule,
     AppRoutingModule,
   ],
   providers: [

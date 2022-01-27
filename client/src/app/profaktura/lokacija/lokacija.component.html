@@ -1,0 +1,104 @@
+<div class="outer-container">
+  <div class="search">
+    <div class="buttons">
+      <button [routerLink]="['/profaktura/drzava']" mat-raised-button>
+        Dodaj drzavu
+      </button>
+      <button [routerLink]="['/profaktura/grad']" mat-raised-button>
+        Dodaj grad
+      </button>
+    </div>
+    <form
+      #formDirectivesSearch="ngForm"
+      [formGroup]="formSearch"
+      (submit)="onSearch()"
+    >
+      <mat-form-field class="search-form" appearance="outline">
+        <mat-label>Pretraga prema drzavi</mat-label>
+        <mat-select formControlName="id_drzave" name="id_drzave" (selectionChange)="getGradoviZaDrzavu($event.value)">
+          <mat-option *ngFor="let drzava of drzave" [value]="drzava.id_drzave">
+            {{ drzava.naziv_drzave }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="search-form" appearance="outline">
+        <mat-label>Pretraga prema gradu</mat-label>
+        <mat-select [attr.disabled]="!this.formSearch.get('id_drzave').value" formControlName="id_grada" name="id_grada">
+          <mat-option *ngFor="let grad of gradoviZaDrzavuSearch" [value]="grad.id_grada">
+            {{ grad.naziv_grada }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        [disabled]="formSearch.invalid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="button"
+      >
+        Pretrazi
+      </button>
+    </form>
+  </div>
+  <div class="container">
+    <div class="content">
+      <h1>Adrese</h1>
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'600px'"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+    <div class="form">
+      <h1>{{ editMode ? "Azuriraj" : "Dodaj novu" }} adresu</h1>
+
+      <mat-card>
+        <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Naziv ulice</mat-label>
+            <input matInput name="ulica" type="text" formControlName="ulica" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Broj</mat-label>
+            <input matInput name="broj" type="number" formControlName="broj" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Drzava</mat-label>
+            <mat-select formControlName="drzava" name="drzava" (selectionChange)="getGradoviDrzave($event.value)">
+              <mat-option
+                *ngFor="let drzava of drzave"
+                [value]="drzava.id_drzave"
+              >
+                {{ drzava.naziv_drzave }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Grad</mat-label>
+            <mat-select [attr.disabled]="!this.form.get('drzava').value || !editMode" formControlName="grad" name="grad">
+              <mat-option *ngFor="let grad of gradovi" [value]="grad.id_grada">
+                {{ grad.naziv_grada }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="button"
+          >
+            {{ editMode ? "Azuriraj" : "Dodaj novu" }} adresu
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

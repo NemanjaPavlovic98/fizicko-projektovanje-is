@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="content">
+      <h1>Valute</h1>
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'450px'"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+    <div class="form">
+      <h1>{{ editMode ? "Azuriraj" : "Dodaj novu" }} valutu</h1>
+  
+      <mat-card>
+        <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Naziv valute</mat-label>
+            <input matInput name="naziv_valute" type="text" formControlName="naziv_valute" />
+          </mat-form-field>
+  
+          <button
+            [disabled]="form.invalid"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="button"
+          >
+            {{ editMode ? "Azuriraj" : "Dodaj novu" }} valutu
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  

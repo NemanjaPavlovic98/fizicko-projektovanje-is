@@ -15,9 +15,9 @@
       <mat-icon class="icon">receipt_long</mat-icon>
       <span mat-button>Informacije za uplatnicu</span>
       <mat-menu #uplatnica="matMenu">
-        <button [routerLink]="['']" mat-menu-item>Valuta</button>
-        <button mat-menu-item [routerLink]="['']">Model</button>
-        <button [routerLink]="['']" mat-menu-item>Radnik</button>
+        <button [routerLink]="['/uplatnica/valuta']" mat-menu-item>Valuta</button>
+        <button mat-menu-item [routerLink]="['/uplatnica/model']">Model</button>
+        <button [routerLink]="['/uplatnica/radnik']" mat-menu-item>Radnik</button>
       </mat-menu>
     </div>
     <div [routerLink]="['/']" class="tab">
@@ -30,7 +30,7 @@
       <mat-icon class="icon">format_list_bulleted</mat-icon>
       <span mat-button>Informacije za profakturu</span>
       <mat-menu #profaktura="matMenu">
-        <button [routerLink]="['']" mat-menu-item>Mesta (drzava-grad)</button>
+        <button [routerLink]="['/profaktura/lokacija']" mat-menu-item>Lokacije</button>
         <button mat-menu-item [routerLink]="['']">Ugovor</button>
         <button [routerLink]="['']" mat-menu-item>Nacin placanja</button>
         <button [routerLink]="['']" mat-menu-item>Tip prevoza</button>

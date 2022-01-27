@@ -1,0 +1,75 @@
+<div class="outer-container">
+  <div class="search">
+    <form #formDirectivesSearch="ngForm" [formGroup]="formSearch" (submit)="onSearch()">
+      <mat-form-field class="search-form" appearance="outline">
+        <mat-label>Pretraga prema drzavi</mat-label>
+        <mat-select formControlName="pretraga" name="pretraga">
+          <mat-option *ngFor="let drzava of drzave" [value]="drzava.id_drzave">
+            {{ drzava.naziv_drzave }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        [disabled]="formSearch.invalid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="button"
+      >
+        Pretrazi
+      </button>
+    </form>
+  </div>
+  <div class="container">
+    <div class="content">
+      <h1>Gradovi</h1>
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'500px'"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+    <div class="form">
+      <h1>{{ editMode ? "Azuriraj" : "Dodaj novi" }} grad</h1>
+
+      <mat-card>
+        <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+        <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Naziv grada</mat-label>
+            <input
+              matInput
+              name="naziv_grada"
+              type="text"
+              formControlName="naziv_grada"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Drzava</mat-label>
+            <mat-select formControlName="drzava" name="drzava">
+              <mat-option
+                *ngFor="let drzava of drzave"
+                [value]="drzava.id_drzave"
+              >
+                {{ drzava.naziv_drzave }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="button"
+          >
+            {{ editMode ? "Azuriraj" : "Dodaj novi" }} grad
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

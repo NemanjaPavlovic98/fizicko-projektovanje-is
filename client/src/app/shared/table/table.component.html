@@ -1,5 +1,5 @@
 <table
-  *ngIf="dataSource && dataSource.length > 0"
+  *ngIf="dataSource && dataSource.length > 0 && !loading"
   [ngStyle]="tableWidth && { width: tableWidth }"
   mat-table
   [dataSource]="dataSource"
@@ -44,7 +44,7 @@
 
 <div
   [ngStyle]="{ width: tableWidth ? tableWidth : '900px' }"
-  *ngIf="dataSource?.length === 0"
+  *ngIf="dataSource?.length === 0 && !loading"
 >
   <h1
     style="
@@ -57,4 +57,4 @@
   </h1>
 </div>
 
-<mat-spinner *ngIf="!dataSource"></mat-spinner>
+<mat-spinner *ngIf="!dataSource || loading"></mat-spinner>

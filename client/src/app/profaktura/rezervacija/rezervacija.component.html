@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="content">
+    <h1>Potvrda rezervacije</h1>
+    <app-table
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [actionsForTable]="actions"
+      [tableWidth]="'600px'"
+      (emitOnClick)="onClickAction($event)"
+    ></app-table>
+  </div>
+  <div class="form">
+    <h1>{{ editMode ? "Azuriraj" : "Dodaj novu" }} potvrdu rezervacije</h1>
+
+    <mat-card>
+      <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Opis</mat-label>
+          <input matInput name="opis" type="text" formControlName="opis" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Radnik</mat-label>
+          <mat-select formControlName="sifra_radnika" name="sifra_radnika">
+            <mat-option
+              *ngFor="let radnik of radnici"
+              [value]="radnik.sifra_radnika"
+            >
+              {{ radnik.ime_prezime }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+        >
+          {{ editMode ? "Azuriraj" : "Dodaj novu" }} potvrdu rezervacije
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

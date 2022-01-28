@@ -11,6 +11,7 @@ export class TableComponent implements OnInit {
   @Input() displayedColumns;
   @Input() actionsForTable: TableActions;
   @Input() tableWidth: string;
+  @Input() loading: boolean;
   @Output() emitOnClick = new EventEmitter();
   displayedColumnsFull = {};
 

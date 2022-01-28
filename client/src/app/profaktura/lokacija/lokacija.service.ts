@@ -64,7 +64,6 @@ export class LokacijaService {
     if (search?.id_grada) {
       params = { ...params, grad: search.id_grada };
     }
-    console.log(params)
     return this.http.get<Adresa[]>(`${this.URL_LOKACIJA}/getAdresa`, {
       params: params,
     });

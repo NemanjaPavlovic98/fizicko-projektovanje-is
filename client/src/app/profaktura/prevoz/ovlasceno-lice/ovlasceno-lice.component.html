@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="content">
+    <h1>Ovlascena lica</h1>
+    <app-table
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [actionsForTable]="actions"
+      [tableWidth]="'700px'"
+      (emitOnClick)="onClickAction($event)"
+    ></app-table>
+  </div>
+  <div class="form">
+    <h1>{{ editMode ? "Azuriraj" : "Dodaj novo" }} ovlasceno lice</h1>
+
+    <mat-card>
+      <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Ime i prezime</mat-label>
+          <input
+            matInput
+            name="ime_prezime"
+            type="text"
+            formControlName="ime_prezime"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prevoznik</mat-label>
+          <mat-select formControlName="id_prevoznika" name="id_prevoznika">
+            <mat-option
+              *ngFor="let prevoznik of prevoznici"
+              [value]="prevoznik.id_prevoznika"
+            >
+              {{ prevoznik.naziv }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+        >
+          {{ editMode ? "Azuriraj" : "Dodaj novo" }} ovlaceno lice
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

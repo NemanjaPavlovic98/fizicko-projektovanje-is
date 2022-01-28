@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="content">
+      <h1>Tip prevoza</h1>
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'450px'"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+    <div class="form">
+      <h1>{{ editMode ? "Azuriraj" : "Dodaj novi" }} tip prevoza</h1>
+  
+      <mat-card>
+        <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Naziv tipa prevoza</mat-label>
+            <input matInput name="naziv_tipa_prevoza" type="text" formControlName="naziv_tipa_prevoza" />
+          </mat-form-field>
+  
+          <button
+            [disabled]="form.invalid"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="button"
+          >
+            {{ editMode ? "Azuriraj" : "Dodaj novi" }} tip prevoza
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  

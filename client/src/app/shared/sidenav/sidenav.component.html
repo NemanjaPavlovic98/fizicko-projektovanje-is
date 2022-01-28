@@ -31,9 +31,9 @@
       <span mat-button>Informacije za profakturu</span>
       <mat-menu #profaktura="matMenu">
         <button [routerLink]="['/profaktura/lokacija']" mat-menu-item>Lokacije</button>
-        <button mat-menu-item [routerLink]="['']">Ugovor</button>
-        <button [routerLink]="['']" mat-menu-item>Nacin placanja</button>
-        <button [routerLink]="['']" mat-menu-item>Tip prevoza</button>
+        <button mat-menu-item [routerLink]="['/profaktura/prevoz']">Prevoz</button>
+        <button [routerLink]="['/profaktura/nacin-placanja']" mat-menu-item>Placanje</button>
+        <button [routerLink]="['/profaktura/rezervacija']" mat-menu-item>Rezervacija</button>
         <button [routerLink]="['']" mat-menu-item>Korisnik</button>
         <button [routerLink]="['']" mat-menu-item>Ovlasceno lice</button>
       </mat-menu>

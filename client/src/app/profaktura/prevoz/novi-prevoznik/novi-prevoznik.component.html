@@ -1,0 +1,109 @@
+<mat-card>
+  <h1 class="mat-body-1">
+    {{ edit_mode ? "Azuriraj" : "Dodaj novog" }} prevoznika
+    {{ edit_mode ? "sa ID-jem - " + prevoznik_id : "" }}
+  </h1>
+  <form [formGroup]="form" (submit)="onSignup()">
+    <mat-form-field appearance="outline">
+      <mat-label>Naziv</mat-label>
+      <input matInput name="naziv" type="text" formControlName="naziv" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Tekuci racun</mat-label>
+      <input
+        type="text"
+        matInput
+        name="br_tekuceg"
+        formControlName="br_tekuceg"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Telefon</mat-label>
+      <input
+        matInput
+        name="br_telefona"
+        type="text"
+        formControlName="br_telefona"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Drzava</mat-label>
+      <mat-select
+        [(ngModel)]="drzavaSelected"
+        formControlName="drzava"
+        name="drzava"
+        (selectionChange)="getGradoviDrzave($event.value)"
+      >
+        <mat-option *ngFor="let drzava of drzave" [value]="drzava.id_drzave">
+          {{ drzava.naziv_drzave }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      [ngStyle]="{ opacity: !drzavaSelected ? '0.3' : '1' }"
+    >
+      <mat-label>Grad</mat-label>
+      <mat-select
+        ng-readonly="!this.form.get('drzava').value || !edit_mode"
+        formControlName="grad"
+        name="grad"
+        (selectionChange)="getAdresaGradoviDrzave($event.value)"
+        [(ngModel)]="gradSelected"
+      >
+        <mat-option
+          *ngFor="let grad of gradovi"
+          [value]="
+            !edit_mode
+              ? { id_drzave: grad.id_drzave, id_grada: grad.id_grada }
+              : grad.id_grada
+          "
+        >
+          {{ grad.naziv_grada }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      [ngStyle]="{ opacity: !gradSelected ? '0.3' : '1' }"
+    >
+      <mat-label>Adresa</mat-label>
+      <mat-select
+        formControlName="adresa"
+        name="adresa"
+        ng-readonly="
+          (!this.form.get('drzava').value && !this.form.get('grad').value) || !edit_mode"
+      >
+        <mat-option
+          *ngFor="let adresa of adrese"
+          [value]="
+            !edit_mode
+              ? {
+                  id_adrese: adresa.id_adrese,
+                  id_grada: adresa.id_grada,
+                  id_drzave: adresa.id_drzave
+                }
+              : adresa.id_adrese
+          "
+        >
+          {{
+            adresa.ulica +
+              " broj " +
+              adresa.broj +
+              ", " +
+              adresa.naziv_grada +
+              " (" +
+              adresa.naziv_drzave +
+              ")"
+          }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" class="button">
+      {{ edit_mode ? "Azuriraj" : "Dodaj novog" }} prevoznika
+    </button>
+  </form>
+</mat-card>

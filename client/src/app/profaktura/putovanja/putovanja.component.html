@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="content">
+      <h1>Program putovanja</h1>
+      <div class="buttons">
+        <button color="warn" [routerLink]="['/profaktura/putovanja/novi-program-putovanja']" mat-raised-button>
+          Novi program putovanja
+        </button>
+        <button color="primary" [routerLink]="['/profaktura/putovanja/programi-putovanja']" mat-raised-button>
+            Programi putovanja
+        </button>
+      </div>
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'1000px'"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+  </div>
+  

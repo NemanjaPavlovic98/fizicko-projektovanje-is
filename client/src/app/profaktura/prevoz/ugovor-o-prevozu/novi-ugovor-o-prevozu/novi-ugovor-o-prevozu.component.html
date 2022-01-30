@@ -1,0 +1,79 @@
+<div class="form">
+  <h1>{{ editMode ? "Azuriraj" : "Dodaj novi" }} ugovor o prevozniku</h1>
+
+  <mat-card>
+    <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Datum kreiranja</mat-label>
+        <input
+          matInput
+          name="datum"
+          formControlName="datum"
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Drzava</mat-label>
+        <mat-select formControlName="id_drzave" name="id_drzave">
+          <mat-option
+            *ngFor="let drzava of drzave"
+            [value]="drzava.id_drzave"
+          >
+            {{ drzava.naziv_drzave }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Radnik</mat-label>
+        <mat-select formControlName="sifra_radnika" name="sifra_radnika">
+          <mat-option
+            *ngFor="let radnik of radnici"
+            [value]="radnik.sifra_radnika"
+          >
+            {{ radnik.sifra_radnika + ' - ' + radnik.ime_prezime }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prevoznik</mat-label>
+        <mat-select (selectionChange)="getLiceZaPrevoznika($event.value)" [(ngModel)]="prevoznikSelected"
+        formControlName="id_prevoznika" name="id_prevoznika">
+          <mat-option
+            *ngFor="let prevoznik of prevoznici"
+            [value]="prevoznik.id_prevoznika"
+          >
+            {{ prevoznik.naziv }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [ngStyle]="{ opacity: !prevoznikSelected ? '0.3' : '1' }">
+        <mat-label>Ovlasceno lice prevoznika</mat-label>
+        <mat-select formControlName="sifra" name="sifra"
+        ng-readonly="!this.form.get('id_prevoznika').value || !edit_mode">
+          <mat-option
+            *ngFor="let ovlasceno_lice of ovlascena_lica"
+            [value]="ovlasceno_lice.sifra"
+          >
+            {{ ovlasceno_lice.sifra + ' - ' + ovlasceno_lice.ime_prezime }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        [disabled]="form.invalid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="button"
+      >
+        {{ editMode ? "Azuriraj" : "Dodaj novi" }} ugovor o prevozniku
+      </button>
+    </form>
+  </mat-card>
+</div>

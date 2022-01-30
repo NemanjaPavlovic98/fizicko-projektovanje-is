@@ -1,0 +1,23 @@
+// pallets
+@use './palletes/app-primary.pallete' as primaryPallet;
+@use './palletes/app-accent.pallete' as accentPallet;
+@use './palletes/app-warning.pallete' as warnPallet;
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// defined pallets for an application
+$app-theme-primary: mat-palette(primaryPallet.$app-primary, 500, 100, 900);
+$app-theme-accent: mat-palette(accentPallet.$app-accent, 900, 300);
+$app-theme-warn: mat-palette(warnPallet.$app-warn, 500);
+
+// application theme
+$app-theme: mat-light-theme(
+	$app-theme-primary,
+	$app-theme-accent,
+	$app-theme-warn
+);
+
+@include angular-material-theme($app-theme);
+// @include tx-components-theme($app-theme);

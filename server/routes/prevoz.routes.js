@@ -18,4 +18,10 @@ router.post("/postOvlascenoLice", controller.addOvlascenoLice);
 router.put("/updateOvlascenoLice/:id", controller.updateOvlascenoLice);
 router.post("/deleteOvlascenoLice/:id", controller.deleteOvlascenoLice);
 
+router.get("/getUgovorPrevoz", controller.getUgovorPrevoz);
+router.get("/getUgovorPrevoz/:id", controller.getSingleUgovorPrevoz);
+router.post("/postUgovorPrevoz", controller.addUgovorPrevoz);
+router.put("/updateUgovorPrevoz/:id", controller.updateUgovorPrevoz);
+router.delete("/deleteUgovorPrevoz/:id", controller.deleteUgovorPrevoz);
+
 module.exports = router;

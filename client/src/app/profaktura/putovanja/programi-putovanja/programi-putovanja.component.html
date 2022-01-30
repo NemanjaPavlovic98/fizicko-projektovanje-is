@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="content">
+    <h1>Programi putovanja</h1>
+    <app-table
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [actionsForTable]="actions"
+      [tableWidth]="'450px'"
+      (emitOnClick)="onClickAction($event)"
+    ></app-table>
+  </div>
+  <div class="form">
+    <h1>{{ editMode ? "Azuriraj" : "Dodaj novi" }} program putovanja</h1>
+
+    <mat-card>
+      <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+        <mat-form-field appearance="outline">
+
+          <mat-label>Datum kreiranja</mat-label>
+          <input
+            matInput
+            name="datum_kreiranja"
+            formControlName="datum_kreiranja"
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sablon programa putovanja</mat-label>
+          <input
+            matInput
+            name="sablon_programa"
+            type="number"
+            formControlName="sablon_programa"
+          />
+        </mat-form-field>
+
+        <button
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+        >
+          {{ editMode ? "Azuriraj" : "Dodaj novi" }} program putovanja
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

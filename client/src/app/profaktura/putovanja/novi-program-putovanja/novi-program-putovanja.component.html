@@ -1,0 +1,56 @@
+<div class="form">
+    <h1>{{ editMode ? "Azuriraj" : "Dodaj novi" }} program putovanja</h1>
+
+    <mat-card>
+      <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Ukljuceno u cenu</mat-label>
+          <textarea matInput name="ukljuceno_u_cenu" type="text" formControlName="ukljuceno_u_cenu"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nije kljuceno u cenu</mat-label>
+          <textarea matInput name="nije_ukljuceno_u_cenu" type="text" formControlName="nije_ukljuceno_u_cenu" ></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Iznos</mat-label>
+          <input matInput name="iznos" type="text" formControlName="iznos" >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Vrsta programa putovanja</mat-label>
+          <mat-select formControlName="redni_broj_putovanja" name="redni_broj_putovanja">
+            <mat-option
+              *ngFor="let program of programi_putovanja"
+              [value]="program.redni_broj_programa"
+            >
+              {{ 'ID: ' + program.redni_broj_programa + ' - sablon: ' + program.sablon_programa }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Rezervacija</mat-label>
+          <mat-select formControlName="id_potvrde" name="id_potvrde">
+            <mat-option
+              *ngFor="let rezervacija of potvrde_rezervacije"
+              [value]="rezervacija.id_potvrde"
+            >
+              {{ rezervacija.id_potvrde + ' - ' + rezervacija.opis }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+        >
+          {{ editMode ? "Azuriraj" : "Dodaj novi" }} program putovanja
+        </button>
+      </form>
+    </mat-card>
+  </div>

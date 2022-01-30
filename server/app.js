@@ -7,6 +7,9 @@ const mestoRoutes = require("./routes/mesto.routes");
 const prevozRoutes = require("./routes/prevoz.routes");
 const rezervacijaRoutes = require("./routes/rezervacija.routes");
 const placanjeRoutes = require("./routes/placanje.routes");
+const putovanjaRoutes = require("./routes/putovanja.routes");
+const korisnikRoutes = require("./routes/korisnik.routes");
+const profakturaRoutes = require("./routes/profaktura.routes");
 
 const { errorNotCaught, errorNotFound } = require("./middleware/error");
 
@@ -40,6 +43,9 @@ app.use("/lokacija", mestoRoutes);
 app.use("/prevoz", prevozRoutes);
 app.use("/rezervacija", rezervacijaRoutes);
 app.use("/placanje", placanjeRoutes);
+app.use("/putovanje", putovanjaRoutes);
+app.use("/korisnik", korisnikRoutes);
+app.use("/profaktura", profakturaRoutes);
 
 app.use(errorNotFound);
 app.use(errorNotCaught);

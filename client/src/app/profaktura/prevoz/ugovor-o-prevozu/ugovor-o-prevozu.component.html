@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="content">
+      <h1>Ugovori o prevozu</h1>
+      <div class="buttons">
+        <button color="warn" [routerLink]="['/profaktura/prevoz/ugovor-o-prevozu/novi-ugovor']" mat-raised-button>
+          Novi ugovor
+        </button>
+      </div>
+  
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'1050px'"
+        [loading]="loading"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+  </div>
+  

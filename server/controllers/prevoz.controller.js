@@ -136,11 +136,12 @@ async function deletePrevoznik(req, res, next) {
 
 async function getOvlascenoLice(req, res, next) {
   try {
-    const result = await db.query(
-      `select o.*, p.naziv as naziv from ovlaceno_lice_prevoznika o
-    join prevoznik p on o.id_prevoznika=p.id_prevoznika`,
-      []
-    );
+    let queryText = `select o.*, p.naziv as naziv from ovlaceno_lice_prevoznika o
+    join prevoznik p on o.id_prevoznika=p.id_prevoznika`;
+    if (req.query.prevoznik) {
+      queryText += ` where o.id_prevoznika = ${req.query.prevoznik}`;
+    }
+    const result = await db.query(queryText, []);
     res.status(200).json(result.rows);
   } catch (error) {
     next(error);
@@ -162,7 +163,7 @@ async function addOvlascenoLice(req, res, next) {
 
 async function updateOvlascenoLice(req, res, next) {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const result = await db.query(
       `update ovlaceno_lice_prevoznika set
       id_prevoznika = $1, ime_prezime = $2
@@ -193,6 +194,96 @@ async function deleteOvlascenoLice(req, res, next) {
   }
 }
 
+// UGOVOR O PREVOZU
+
+async function getUgovorPrevoz(req, res, next) {
+  try {
+    const result = await db.query(
+      `select uop.*, d.naziv_drzave, olp.ime_prezime as ime_prezime_ovlascenog, p.naziv, r.ime_prezime as ime_prezime_radnika
+      from ugovor_o_prevozu uop
+      join drzava d on uop.id_drzave=d.id_drzave
+      join ovlaceno_lice_prevoznika olp on uop.sifra=olp.sifra
+      join prevoznik p on uop.id_prevoznika=p.id_prevoznika
+      join radnik r on uop.sifra_radnika = r.sifra_radnika`,
+      []
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getSingleUgovorPrevoz(req, res, next) {
+  try {
+    const result = await db.query(
+      `select uop.*, d.naziv_drzave, olp.ime_prezime as ime_prezime_ovlascenog, p.naziv, r.ime_prezime as ime_prezime_radnika
+      from ugovor_o_prevozu uop
+      join drzava d on uop.id_drzave=d.id_drzave
+      join ovlaceno_lice_prevoznika olp on uop.sifra=olp.sifra
+      join prevoznik p on uop.id_prevoznika=p.id_prevoznika
+      join radnik r on uop.sifra_radnika = r.sifra_radnika
+      where broj_ugovora = $1`,
+      [req.params.id]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function addUgovorPrevoz(req, res, next) {
+  try {
+    const result = await db.query(
+      `insert into ugovor_o_prevozu (datum, id_drzave, sifra, id_prevoznika, sifra_radnika)
+      values($1, $2, $3, $4, $5)`,
+      [
+        req.body.datum,
+        req.body.id_drzave,
+        req.body.sifra,
+        req.body.id_prevoznika,
+        req.body.sifra_radnika,
+      ]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function updateUgovorPrevoz(req, res, next) {
+  try {
+    console.log(req.body);
+    const result = await db.query(
+      `update ugovor_o_prevozu set
+      datum = $1, id_drzave=$2, sifra=$3, id_prevoznika=$4, sifra_radnika=$5
+      where broj_ugovora = $6`,
+      [
+        req.body.datum,
+        req.body.id_drzave,
+        req.body.sifra,
+        req.body.id_prevoznika,
+        req.body.sifra_radnika,
+        req.params.id,
+      ]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function deleteUgovorPrevoz(req, res, next) {
+  try {
+    const result = await db.query(
+      `delete from ugovor_o_prevozu where broj_ugovora = $1`,
+      [req.params.id]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getTipPrevoza,
   addTipPrevoza,
@@ -207,4 +298,9 @@ module.exports = {
   addOvlascenoLice,
   updateOvlascenoLice,
   deleteOvlascenoLice,
+  getUgovorPrevoz,
+  getSingleUgovorPrevoz,
+  addUgovorPrevoz,
+  updateUgovorPrevoz,
+  deleteUgovorPrevoz,
 };

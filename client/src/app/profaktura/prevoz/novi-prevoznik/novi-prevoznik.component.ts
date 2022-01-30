@@ -117,7 +117,7 @@ export class NoviPrevoznikComponent implements OnInit {
   getAdresaGradoviDrzave(grad: any) {
     if (!this.edit_mode) {
       // { id_drzave: number; id_grada: number }
-      this.getAdrese(grad.id_drzave, grad.id_grada);
+      this.getAdrese(grad.id_grada, grad.id_drzave);
     }
     else{
       this.getAdrese(grad)

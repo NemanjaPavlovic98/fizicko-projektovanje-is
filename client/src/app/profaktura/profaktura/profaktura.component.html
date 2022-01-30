@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="content">
+      <h1>Profakture</h1>
+      <div class="buttons">
+        <button color="warn" [routerLink]="['/profaktura/nova-profaktura']" mat-raised-button>
+          Nova profaktura
+        </button>
+      </div>
+  
+      <app-table
+        [dataSource]="dataSource"
+        [displayedColumns]="displayedColumns"
+        [actionsForTable]="actions"
+        [tableWidth]="'1200px'"
+        (emitOnClick)="onClickAction($event)"
+      ></app-table>
+    </div>
+  </div>
+  

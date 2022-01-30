@@ -11,7 +11,16 @@ import { TipPrevozaComponent } from './prevoz/tip-prevoza/tip-prevoza.component'
 import { PlacanjeComponent } from './placanje/placanje.component';
 import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 import { OvlascenoLiceComponent } from './prevoz/ovlasceno-lice/ovlasceno-lice.component';
-
+import { PutovanjaComponent } from './putovanja/putovanja.component';
+import { ProgramiPutovanjaComponent } from './putovanja/programi-putovanja/programi-putovanja.component';
+import { NoviProgramPutovanjaComponent } from './putovanja/novi-program-putovanja/novi-program-putovanja.component';
+import { UgovorOPrevozuComponent } from './prevoz/ugovor-o-prevozu/ugovor-o-prevozu.component';
+import { NoviUgovorOPrevozuComponent } from './prevoz/ugovor-o-prevozu/novi-ugovor-o-prevozu/novi-ugovor-o-prevozu.component';
+import { KorisnikComponent } from './korisnik/korisnik.component';
+import { NoviKorisnikComponent } from './korisnik/novi-korisnik/novi-korisnik.component';
+import { ProfakturaComponent } from './profaktura/profaktura.component';
+import { NovaProfakturaComponent } from './profaktura/nova-profaktura/nova-profaktura.component';
+import { StavkeProfaktureComponent } from './profaktura/stavke-profakture/stavke-profakture.component';
 
 
 @NgModule({
@@ -24,7 +33,17 @@ import { OvlascenoLiceComponent } from './prevoz/ovlasceno-lice/ovlasceno-lice.c
     TipPrevozaComponent,
     PlacanjeComponent,
     RezervacijaComponent,
-    OvlascenoLiceComponent
+    OvlascenoLiceComponent,
+    PutovanjaComponent,
+    ProgramiPutovanjaComponent,
+    NoviProgramPutovanjaComponent,
+    UgovorOPrevozuComponent,
+    NoviUgovorOPrevozuComponent,
+    KorisnikComponent,
+    NoviKorisnikComponent,
+    ProfakturaComponent,
+    NovaProfakturaComponent,
+    StavkeProfaktureComponent
   ],
   imports: [
     CommonModule,

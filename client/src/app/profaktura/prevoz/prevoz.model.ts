@@ -23,3 +23,16 @@ export interface OvlascenoLice {
   ime_prezime: string;
   naziv: string;
 }
+
+export interface UgovorPrevoz {
+  broj_ugovora: number;
+  datum: string;
+  id_drzave: number;
+  id_prevoznika: number;
+  ime_prezime_ovlascenog: string;
+  ime_prezime_radnika: string;
+  naziv: string;
+  naziv_drzave: string;
+  sifra: number;
+  sifra_radnika: number;
+}

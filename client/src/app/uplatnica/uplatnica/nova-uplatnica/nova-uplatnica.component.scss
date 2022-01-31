@@ -1,0 +1,48 @@
+.form {
+    padding-top: 100px;
+  
+    h1 {
+      text-align: center;
+    }
+    mat-card {
+      width: 600px;
+      max-width: 90%;
+      margin: 0px auto 0px;
+      text-align: center;
+      position: relative;
+      padding-top: 30px;
+  
+      .submit {
+        margin-top: 10px;
+      }
+    }
+  
+    mat-form-field {
+      width: 100%;
+    }
+  
+    .w-50 {
+      width: 49%;
+      margin: 0px 2px;
+    }
+  
+    .button {
+      display: block;
+      margin: auto;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+  
+    a {
+      margin: 20px 0;
+      display: inline-block;
+      opacity: 0.4;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  
+    mat-spinner {
+      margin: auto;
+    }
+  }
+  

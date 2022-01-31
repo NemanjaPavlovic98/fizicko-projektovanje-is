@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActionType, TableActions } from 'src/app/shared/table/table.model';
 import { ToastService } from 'src/app/shared/toast.service';
 import Swal from 'sweetalert2';
@@ -63,11 +63,14 @@ export class PlacanjeComponent implements OnInit {
     this.getNacinPlacanja();
 
     this.form = new FormGroup({
-      opis_nacina: new FormControl(null),
+      opis_nacina: new FormControl(null, Validators.required),
     });
   }
 
   onAddNew() {
+    if(this.form.invalid){
+      return;
+    }
     if (!this.editMode) {
       this.placanjeService.postNacinPlacanja(this.form.value).subscribe(() => {
         this.form.reset();

@@ -1,0 +1,116 @@
+<div class="form">
+  <h1>{{ editMode ? "Azuriraj" : "Dodaj novu" }} uplatnicu</h1>
+
+  <mat-card>
+    <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+      <mat-form-field *ngIf="!editMode" appearance="outline">
+        <mat-label>ID uplatnice</mat-label>
+        <input
+          matInput
+          name="id_uplatnice"
+          type="text"
+          formControlName="id_uplatnice"
+        />
+        <mat-error *ngIf="form.get('id_uplatnice').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Iznos</mat-label>
+        <input matInput name="iznos" type="text" formControlName="iznos" />
+        <mat-error *ngIf="form.get('iznos').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Valuta</mat-label>
+        <mat-select formControlName="id_valute" name="id_valute">
+          <mat-option *ngFor="let valuta of valute" [value]="valuta.id_valute">
+            {{ valuta.naziv_valute }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('id_valute').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Broj racuna</mat-label>
+        <input
+          matInput
+          name="br_racuna"
+          type="text"
+          formControlName="br_racuna"
+        />
+        <mat-error *ngIf="form.get('br_racuna').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Svrha uplate</mat-label>
+        <input
+          matInput
+          name="svrha_uplate"
+          type="text"
+          formControlName="svrha_uplate"
+        />
+        <mat-error *ngIf="form.get('svrha_uplate').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Model</mat-label>
+        <mat-select formControlName="id_modela" name="id_modela">
+          <mat-option *ngFor="let model of modeli" [value]="model.id_modela">
+            {{ model.opis_modela }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('id_modela').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Profaktura prevoznika</mat-label>
+        <mat-select formControlName="br_profakture" name="br_profakture">
+          <mat-option
+            *ngFor="let profaktura of profakture"
+            [value]="profaktura.br_profakture"
+          >
+            {{ "Profaktura - " + profaktura.br_profakture }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('br_profakture').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Radnik</mat-label>
+        <mat-select formControlName="sifra_radnika" name="sifra_radnika">
+          <mat-option
+            *ngFor="let radnik of radnici"
+            [value]="radnik.sifra_radnika"
+          >
+            {{ radnik.sifra_radnika + " - " + radnik.ime_prezime }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('sifra_radnika').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Korisnik</mat-label>
+        <mat-select formControlName="jmbg" name="jmbg">
+          <mat-option
+            *ngFor="let korisnik of korisnici"
+            [value]="korisnik.jmbg"
+          >
+            {{ korisnik.ime_prezime }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('jmbg').invalid">Obavezno polje</mat-error>
+      </mat-form-field>
+
+      <button
+        [disabled]="form.invalid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="submit"
+      >
+        {{ editMode ? "Azuriraj" : "Dodaj novu" }} uplatnicu
+      </button>
+    </form>
+  </mat-card>
+</div>

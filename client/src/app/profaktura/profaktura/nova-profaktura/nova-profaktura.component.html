@@ -1,1 +1,251 @@
-<p>nova-profaktura works!</p>
+<mat-card>
+  <h1 class="mat-body-1">
+    {{ edit_mode ? "Azuriraj" : "Dodaj novu" }} profakturu
+    {{ edit_mode ? "sa ID-jem - " + profaktura_id : "" }}
+  </h1>
+  <form [formGroup]="form" (submit)="onSignup()">
+    <mat-form-field *ngIf="!edit_mode" appearance="outline">
+      <mat-label>Broj profakture</mat-label>
+      <input
+        matInput
+        name="br_profakture"
+        type="text"
+        formControlName="br_profakture"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Iznos</mat-label>
+      <input matInput name="iznos" type="text" formControlName="iznos" />
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Nacin placanja</mat-label>
+      <mat-select formControlName="id_nacina" name="id_nacina">
+        <mat-option
+          *ngFor="let nacin of nacin_placanja"
+          [value]="nacin.id_nacina"
+        >
+          {{ nacin.opis_nacina }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Datum prometa</mat-label>
+      <input
+        matInput
+        name="datum_prometa"
+        formControlName="datum_prometa"
+        [matDatepicker]="picker"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Datum izdavanja</mat-label>
+      <input
+        matInput
+        name="datum_izdavanja"
+        formControlName="datum_izdavanja"
+        [matDatepicker]="picker2"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Poziv na broj</mat-label>
+      <input
+        matInput
+        name="poziv_na_broj"
+        type="text"
+        formControlName="poziv_na_broj"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Ugovor o prevozu</mat-label>
+      <mat-select formControlName="br_ugovora" name="br_ugovora">
+        <mat-option
+          *ngFor="let ugovor of ugovori_o_prevozu"
+          [value]="ugovor.broj_ugovora"
+        >
+          {{ "Ugovor - " + ugovor.broj_ugovora }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Drzava</mat-label>
+      <mat-select
+        [(ngModel)]="drzavaSelected"
+        formControlName="id_drzave"
+        name="id_drzave"
+        (selectionChange)="getGradoviDrzave($event.value)"
+      >
+        <mat-option *ngFor="let drzava of drzave" [value]="drzava.id_drzave">
+          {{ drzava.naziv_drzave }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field
+      class="w-50"
+      appearance="outline"
+      [ngStyle]="{ opacity: !drzavaSelected ? '0.3' : '1' }"
+    >
+      <mat-label>Grad</mat-label>
+      <mat-select
+        ng-readonly="!this.form.get('id_drzave').value || !edit_mode"
+        formControlName="id_grada"
+        name="id_grada"
+      >
+        <mat-option
+          *ngFor="let grad of gradovi"
+          [value]="
+            !edit_mode
+              ? { id_drzave: grad.id_drzave, id_grada: grad.id_grada }
+              : grad.id_grada
+          "
+        >
+          {{ grad.naziv_grada }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-50" appearance="outline">
+      <mat-label>Prevoznik</mat-label>
+      <mat-select
+        (selectionChange)="getLiceZaPrevoznika($event.value)"
+        [(ngModel)]="prevoznikSelected"
+        formControlName="id_prevoznika"
+        name="id_prevoznika"
+      >
+        <mat-option
+          *ngFor="let prevoznik of prevoznici"
+          [value]="prevoznik.id_prevoznika"
+        >
+          {{ prevoznik.naziv }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field
+      class="w-50"
+      appearance="outline"
+      [ngStyle]="{ opacity: !prevoznikSelected ? '0.3' : '1' }"
+    >
+      <mat-label>Ovlasceno lice prevoznika</mat-label>
+      <mat-select
+        formControlName="sifra"
+        name="sifra"
+        ng-readonly="!this.form.get('id_prevoznika').value || !edit_mode"
+      >
+        <mat-option
+          *ngFor="let ovlasceno_lice of ovlascena_lica"
+          [value]="ovlasceno_lice.sifra"
+        >
+          {{ ovlasceno_lice.sifra + " - " + ovlasceno_lice.ime_prezime }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- STAVKE PROFAKTURE  -->
+
+    <div
+      class="stavke-racuna"
+      style="background-color: antiquewhite; padding: 20px"
+    >
+      <h2 style="text-align: left">Stavke profakture</h2>
+      <div class="innner-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Opis</mat-label>
+          <input matInput name="opis" type="text" formControlName="opis" />
+        </mat-form-field>
+
+        <mat-form-field class="w-50" appearance="outline">
+            <mat-label>Cena</mat-label>
+            <input matInput name="cena" type="text" formControlName="cena" />
+          </mat-form-field>
+
+          <mat-form-field class="w-50" appearance="outline">
+            <mat-label>Napomena</mat-label>
+            <input matInput name="napomena" type="text" formControlName="napomena" />
+          </mat-form-field>
+
+        <mat-form-field class="w-50" appearance="outline">
+          <mat-label>Korisnik</mat-label>
+          <mat-select formControlName="jmbg" name="jmbg">
+            <mat-option
+              *ngFor="let korisnik of korisnici"
+              [value]="korisnik.jmbg"
+            >
+              {{ korisnik.ime_prezime }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="w-50" appearance="outline">
+            <mat-label>Tip prevoza</mat-label>
+            <mat-select formControlName="id_tip_prevoza" name="id_tip_prevoza">
+              <mat-option
+                *ngFor="let prevoz of tipovi_prevoza"
+                [value]="prevoz.id_tip_prevoza"
+              >
+                {{ prevoz.naziv_tipa_prevoza }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        <button
+          style="margin: 20px 0px 5px"
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+          class="button"
+          type="button"
+          (click)="addStavka()"
+        >
+          Dodaj stavku profakture
+        </button>
+      </div>
+      <div *ngIf="dataSource.length > 0" class="table">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container
+            [matColumnDef]="column"
+            *ngFor="let column of objectKeys(displayedColumns)"
+          >
+            <th mat-header-cell *matHeaderCellDef>
+              {{ displayedColumns[column] }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon (click)="onDelete(element)"
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="objectKeys(displayedColumnsFull)"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: objectKeys(displayedColumnsFull)"
+          ></tr>
+        </table>
+      </div>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" class="button">
+      {{ edit_mode ? "Azuriraj" : "Dodaj novu" }} profakturu
+    </button>
+  </form>
+</mat-card>

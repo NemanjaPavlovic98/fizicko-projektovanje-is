@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActionType, TableActions } from 'src/app/shared/table/table.model';
 import { ToastService } from 'src/app/shared/toast.service';
 import Swal from 'sweetalert2';
@@ -62,7 +62,7 @@ export class ValutaComponent implements OnInit {
     this.getValute();
 
     this.form = new FormGroup({
-      naziv_valute: new FormControl(null),
+      naziv_valute: new FormControl(null, Validators.required),
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActionType, TableActions } from 'src/app/shared/table/table.model';
 import { ToastService } from 'src/app/shared/toast.service';
 import Swal from 'sweetalert2';
@@ -68,12 +68,15 @@ export class OvlascenoLiceComponent implements OnInit {
     });
 
     this.form = new FormGroup({
-      ime_prezime: new FormControl(null),
-      id_prevoznika: new FormControl(null),
+      ime_prezime: new FormControl(null, Validators.required),
+      id_prevoznika: new FormControl(null, Validators.required),
     });
   }
 
   onAddNew() {
+    if(this.form.invalid){
+      return;
+    }
     if (!this.editMode) {
       this.prevozService.postOvlascenoLice(this.form.value).subscribe(() => {
         this.form.reset();

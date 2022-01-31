@@ -1,1 +1,73 @@
-<p>stavke-profakture works!</p>
+<div class="container">
+  <div class="content">
+    <h1>Stavke za profakturu sa ID-jem - {{ dataSource[0]?.br_profakture }}</h1>
+
+    <app-table
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [actionsForTable]="actions"
+      [tableWidth]="'800px'"
+      (emitOnClick)="onClickAction($event)"
+    ></app-table>
+  </div>
+  <div *ngIf="editMode" class="form">
+    <h1>Azuriraj stavku racuna</h1>
+    <mat-card>
+      <form [formGroup]="form" (submit)="onAddNew()" #formDirective="ngForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Opis</mat-label>
+          <input matInput name="opis" type="text" formControlName="opis" />
+        </mat-form-field>
+
+        <mat-form-field class="w-50" appearance="outline">
+          <mat-label>Cena</mat-label>
+          <input matInput name="cena" type="text" formControlName="cena" />
+        </mat-form-field>
+
+        <mat-form-field class="w-50" appearance="outline">
+          <mat-label>Napomena</mat-label>
+          <input
+            matInput
+            name="napomena"
+            type="text"
+            formControlName="napomena"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Korisnik</mat-label>
+          <mat-select formControlName="jmbg" name="jmbg">
+            <mat-option
+              *ngFor="let korisnik of korisnici"
+              [value]="korisnik.jmbg"
+            >
+              {{ korisnik.ime_prezime }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tip prevoza</mat-label>
+          <mat-select formControlName="id_tip_prevoza" name="id_tip_prevoza">
+            <mat-option
+              *ngFor="let prevoz of tipovi_prevoza"
+              [value]="prevoz.id_tip_prevoza"
+            >
+              {{ prevoz.naziv_tipa_prevoza }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button
+          [disabled]="form.invalid"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+        >
+          Azuriraj stavku
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

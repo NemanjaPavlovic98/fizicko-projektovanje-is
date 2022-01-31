@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from 'src/app/shared/toast.service';
 import { Adresa, Drzava, Grad } from '../../lokacija/lokacija.model';
@@ -33,12 +33,12 @@ export class NoviPrevoznikComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      naziv: new FormControl(null),
-      br_tekuceg: new FormControl(null),
-      br_telefona: new FormControl(null),
-      adresa: new FormControl(null),
-      drzava: new FormControl(null),
-      grad: new FormControl(null),
+      naziv: new FormControl(null, Validators.required),
+      br_tekuceg: new FormControl(null, Validators.required),
+      br_telefona: new FormControl(null, Validators.required),
+      adresa: new FormControl(null, Validators.required),
+      drzava: new FormControl(null, Validators.required),
+      grad: new FormControl(null, Validators.required),
     });
 
     this.lokacijaService.getDrzava().subscribe((res: Drzava[]) => {
@@ -74,6 +74,9 @@ export class NoviPrevoznikComponent implements OnInit {
   onDelete(id: number) {}
 
   onSignup() {
+    if(this.form.invalid){
+      return;
+    }
     const finalData = {
       naziv: this.form.value.naziv,
       br_tekuceg: this.form.value.br_tekuceg,

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActionType, TableActions } from 'src/app/shared/table/table.model';
 import { ToastService } from 'src/app/shared/toast.service';
 import Swal from 'sweetalert2';
@@ -65,12 +65,15 @@ export class ProgramiPutovanjaComponent implements OnInit {
     this.getProgramiPutovanja();
 
     this.form = new FormGroup({
-      datum_kreiranja: new FormControl(null),
-      sablon_programa: new FormControl(null),
+      datum_kreiranja: new FormControl(null, Validators.required),
+      sablon_programa: new FormControl(null, Validators.required),
     });
   }
 
   onAddNew() {
+    if(this.form.invalid){
+      return;
+    }
     this.form.value.datum_kreiranja = this.datepipe.transform(
       this.form.value.datum_kreiranja,
       'yyyy-MM-dd'
@@ -121,7 +124,7 @@ export class ProgramiPutovanjaComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.putovanjaService.deleteProgramiPutovanja(id).subscribe(() => {
-          Swal.fire('Model obrisan!', '', 'success');
+          Swal.fire('Tip prevoza obrisan!', '', 'success');
           this.getProgramiPutovanja();
         });
       }

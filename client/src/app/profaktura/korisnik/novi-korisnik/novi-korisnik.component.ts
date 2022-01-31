@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ToastService } from 'src/app/shared/toast.service';
@@ -52,15 +52,15 @@ export class NoviKorisnikComponent implements OnInit {
       });
 
     this.form = new FormGroup({
-      br_pasos: new FormControl(null),
-      br_telefona: new FormControl(null),
-      datum_rodj: new FormControl(null),
-      id_adrese: new FormControl(null),
-      id_drzave: new FormControl(null),
-      id_grada: new FormControl(null),
-      ime_prezime: new FormControl(null),
-      jmbg: new FormControl(null),
-      sifra_programa: new FormControl(null),
+      br_pasos: new FormControl(null, Validators.required),
+      br_telefona: new FormControl(null, Validators.required),
+      datum_rodj: new FormControl(null, Validators.required),
+      id_adrese: new FormControl(null, Validators.required),
+      id_drzave: new FormControl(null, Validators.required),
+      id_grada: new FormControl(null, Validators.required),
+      ime_prezime: new FormControl(null, Validators.required),
+      jmbg: new FormControl(null, Validators.required),
+      sifra_programa: new FormControl(null, Validators.required),
     });
 
     if (this.jmbg) {
@@ -92,6 +92,9 @@ export class NoviKorisnikComponent implements OnInit {
   }
 
   onAddNew() {
+    if(this.form.invalid){
+      return;
+    }
     const finalData = {
       br_pasos: this.form.value.br_pasos,
       br_telefona: this.form.value.br_telefona,

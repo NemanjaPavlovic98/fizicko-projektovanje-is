@@ -27,7 +27,7 @@ const routes: Routes = [
       { path: '', component: ProfakturaComponent },
       { path: 'nova-profaktura', component: NovaProfakturaComponent },
       { path: 'edit-profaktura/:id', component: NovaProfakturaComponent },
-      { path: 'stavke-racuna/:id', component: StavkeProfaktureComponent },
+      { path: 'stavke-profakture/:id', component: StavkeProfaktureComponent },
       { path: 'lokacija', component: LokacijaComponent },
       { path: 'grad', component: GradComponent },
       { path: 'drzava', component: DrzavaComponent },

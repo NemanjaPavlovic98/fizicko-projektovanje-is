@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActionType, TableActions } from 'src/app/shared/table/table.model';
 import { ToastService } from 'src/app/shared/toast.service';
 import { Radnik } from 'src/app/uplatnica/uplatnica.model';
@@ -72,12 +72,15 @@ export class RezervacijaComponent implements OnInit {
     })
 
     this.form = new FormGroup({
-      opis: new FormControl(null),
-      sifra_radnika: new FormControl(null),
+      opis: new FormControl(null, Validators.required),
+      sifra_radnika: new FormControl(null, Validators.required),
     });
   }
 
   onAddNew() {
+    if(this.form.invalid){
+      return;
+    }
     if (!this.editMode) {
       this.rezervacijaService.postPotvrdaRezervacije(this.form.value).subscribe(() => {
         this.form.reset();

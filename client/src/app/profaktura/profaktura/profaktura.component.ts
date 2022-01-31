@@ -11,7 +11,7 @@ import { ProfakturaService } from './profaktura.service';
 export class ProfakturaComponent implements OnInit {
   displayedColumns = {
     br_profakture: 'Broj profakture',
-    iznos: 'Iznos',
+    ukupan_iznos: 'Ukupan iznos',
     datum_prometa: 'Datum prometa',
     datum_izdavanja: 'Datum izdavanja',
     opis_nacina: 'Nacina placanja',
@@ -28,7 +28,7 @@ export class ProfakturaComponent implements OnInit {
     {
       name: 'pregled stavki',
       icon: 'attach_file',
-      route: '/profaktura/stavke_racuna',
+      route: '/profaktura/stavke-profakture',
       param: ['br_profakture'],
     },
     {

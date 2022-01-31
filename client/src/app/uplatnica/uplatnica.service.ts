@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
-import { Model, Radnik, Valuta } from './uplatnica.model';
+import { Model, Radnik, Uplatnica, Valuta } from './uplatnica.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,7 @@ export class UplatnicaService {
   private readonly URL_RADNIK = `${environment.apiUrl}/radnik`;
   private readonly URL_MODEL = `${environment.apiUrl}/model`;
   private readonly URL_VALUTA = `${environment.apiUrl}/valuta`;
+  private readonly URL_UPLATNICA = `${environment.apiUrl}/uplatnica`;
 
   constructor(private http: HttpClient, private datepipe: DatePipe) {}
 
@@ -66,5 +67,27 @@ export class UplatnicaService {
 
   deleteValuta(id: number) {
     return this.http.delete(`${this.URL_VALUTA}/deleteValuta/${id}`);
+  }
+
+   //   UPLATNICA
+
+   getUplatnica() {
+    return this.http.get<Uplatnica[]>(`${this.URL_UPLATNICA}/getUplatnica`);
+  }
+
+  getSingleUplatnica(id: number) {
+    return this.http.get<Uplatnica[]>(`${this.URL_UPLATNICA}/getUplatnica/${id}`);
+  }
+
+  postUplatnica(uplatnica: Partial<Uplatnica>) {
+    return this.http.post(`${this.URL_UPLATNICA}/postUplatnica`, uplatnica);
+  }
+
+  updateUplatnica(id: number, uplatnica: Partial<Uplatnica>) {
+    return this.http.put(`${this.URL_UPLATNICA}/updateUplatnica/${id}`, uplatnica);
+  }
+
+  deleteUplatnica(id: number) {
+    return this.http.delete(`${this.URL_UPLATNICA}/deleteUplatnica/${id}`);
   }
 }

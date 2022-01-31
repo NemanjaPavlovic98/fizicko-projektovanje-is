@@ -1,0 +1,22 @@
+.container {
+    padding-top: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    ::ng-deep table.mat-table{
+      max-width: 98%;
+    }
+  
+    button {
+      margin: 16px 8px 16px 0;
+    }
+  
+    button.custom-color{
+      background: chocolate;
+      color: white;
+    }
+  }
+
+
+  

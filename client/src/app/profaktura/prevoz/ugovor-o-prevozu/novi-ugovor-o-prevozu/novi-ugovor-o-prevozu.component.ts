@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { Drzava } from 'src/app/profaktura/lokacija/lokacija.model';
@@ -41,22 +41,20 @@ export class NoviUgovorOPrevozuComponent implements OnInit {
 
     forkJoin({
       drzave: this.lokacijaService.getDrzava(),
-      // ovlascena_lica: this.prevozService.getOvlascenoLice(),
       prevoznici: this.prevozService.getPrevoznik(),
       radnici: this.uplatnicaService.getRadnici(),
     }).subscribe((res) => {
       (this.drzave = res.drzave),
-        // (this.ovlascena_lica = res.ovlascena_lica),
         (this.prevoznici = res.prevoznici),
         (this.radnici = res.radnici);
     });
 
     this.form = new FormGroup({
-      datum: new FormControl(null),
-      id_drzave: new FormControl(null),
-      id_prevoznika: new FormControl(null),
-      sifra: new FormControl(null),
-      sifra_radnika: new FormControl(null),
+      datum: new FormControl(null, Validators.required),
+      id_drzave: new FormControl(null, Validators.required),
+      id_prevoznika: new FormControl(null, Validators.required),
+      sifra: new FormControl(null, Validators.required),
+      sifra_radnika: new FormControl(null, Validators.required),
     });
 
     if (this.id_ugovora) {
@@ -79,6 +77,9 @@ export class NoviUgovorOPrevozuComponent implements OnInit {
   }
 
   onAddNew() {
+    if(this.form.invalid){
+      return;
+    }
     if (!this.editMode) {
       this.prevozService.postUgovorPrevoz(this.form.value).subscribe(() => {
         this.toastService.fireToast('success', 'Ugovor uspesno dodat!');

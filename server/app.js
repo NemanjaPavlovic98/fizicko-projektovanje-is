@@ -10,6 +10,7 @@ const placanjeRoutes = require("./routes/placanje.routes");
 const putovanjaRoutes = require("./routes/putovanja.routes");
 const korisnikRoutes = require("./routes/korisnik.routes");
 const profakturaRoutes = require("./routes/profaktura.routes");
+const uplatnicaRoutes = require("./routes/uplatnica.routes");
 
 const { errorNotCaught, errorNotFound } = require("./middleware/error");
 
@@ -46,6 +47,7 @@ app.use("/placanje", placanjeRoutes);
 app.use("/putovanje", putovanjaRoutes);
 app.use("/korisnik", korisnikRoutes);
 app.use("/profaktura", profakturaRoutes);
+app.use("/uplatnica", uplatnicaRoutes);
 
 app.use(errorNotFound);
 app.use(errorNotCaught);

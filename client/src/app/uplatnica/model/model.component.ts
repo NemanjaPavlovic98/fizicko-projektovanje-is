@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActionType, TableActions } from 'src/app/shared/table/table.model';
 import { ToastService } from 'src/app/shared/toast.service';
 import Swal from 'sweetalert2';
@@ -62,7 +62,7 @@ export class ModelComponent implements OnInit {
     this.getModeli();
 
     this.form = new FormGroup({
-      opis_modela: new FormControl(null),
+      opis_modela: new FormControl(null, Validators.required),
     });
   }
 

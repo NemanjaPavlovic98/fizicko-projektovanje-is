@@ -74,8 +74,8 @@ export class GradComponent implements OnInit {
     this.getDrzave();
 
     this.form = new FormGroup({
-      naziv_grada: new FormControl(null),
-      drzava: new FormControl(null),
+      naziv_grada: new FormControl(null, Validators.required),
+      drzava: new FormControl(null, Validators.required),
     });
 
     this.formSearch = new FormGroup({

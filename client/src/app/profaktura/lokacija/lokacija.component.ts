@@ -94,9 +94,9 @@ export class LokacijaComponent implements OnInit {
     this.getDrzave();
 
     this.form = new FormGroup({
-      ulica: new FormControl(null),
-      broj: new FormControl(null),
-      grad: new FormControl(null),
+      ulica: new FormControl(null, Validators.required),
+      broj: new FormControl(null, Validators.required),
+      grad: new FormControl(null, Validators.required),
       drzava: new FormControl(null, Validators.required),
     });
 
